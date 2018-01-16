@@ -3,6 +3,8 @@ import csv
 import argparse
 #from tqdm import tqdm
 
+PATH = "gs://video_storage_djbrenne/"
+
 def transcribe_gcs(gcs_uri, outputfile):
   """Asynchronously transcribes the audio file specified by the gcs_uri."""
   from google.cloud import speech
@@ -11,7 +13,8 @@ def transcribe_gcs(gcs_uri, outputfile):
   
   # build client and configuration
   client = speech.SpeechClient()
-  audio = types.RecognitionAudio(uri=gcs_uri)
+
+  audio = types.RecognitionAudio(uri=PATH + gcs_uri)
   config = types.RecognitionConfig(
       encoding=enums.RecognitionConfig.AudioEncoding.FLAC,
       sample_rate_hertz=16000,
